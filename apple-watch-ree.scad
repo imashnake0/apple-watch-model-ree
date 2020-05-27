@@ -277,3 +277,64 @@ intersection(){
         }
     }
 }
+
+
+
+
+
+//sensor
+rotate([180, 0, 0]){
+    difference(){
+        difference(){
+            translate([0, 0, -5.68]){
+                sphere(r = 17.46095, $fn = 400);
+            }
+            translate([0, 0, 152.959021829]){
+                sphere(r = 147.379846641, $fn = 100);
+            }
+        }
+        translate([0, 0, -9.7504]){
+            cube([50, 50, 30], center = true);
+        }
+    }
+}
+//layer_1
+rotate([180, 0, 0]){
+	difference(){
+        difference(){
+            translate([0, 0, -5.68]){
+                sphere(r = 17.50095, $fn = 400);
+            }
+            translate([0, 0, 152.959021829]){
+                sphere(r = 147.779846641, $fn = 100);
+            }
+        }
+        translate([0, 0, -9.7504]){
+            cube([50, 50, 30], center = true);
+        }
+    }
+}
+//layer_2
+rotate([180, 0, 0]){
+    difference(){
+        difference(){
+            translate([0, 0, -5.68]){
+                sphere(r = 17.52095, $fn = 400);
+            }
+            translate([0, 0, 152.959021829]){
+                sphere(r = 148.179846641, $fn = 100);
+            }
+        }
+        translate([0, 0, -9.7504]){
+            cube([50, 50, 30], center = true);
+        }
+    }
+}
+intersection(){
+    translate([0, 0, 70.42501168]){
+        sphere(r = 77.6350166, $fn = 800);
+    }
+    translate([0, 0, -6]){
+        cylinder(r = 12.84, h = 10, $fn = 100, center = true);
+    }
+}
