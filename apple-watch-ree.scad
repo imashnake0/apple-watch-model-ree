@@ -54,21 +54,30 @@ sphere(r = 10.5/2, $fn = 250);
 
 difference(){
     difference(){
-        body();
-        translate([0, 0, 3.86]){
-            cube([50, 50, 0.17], center = true);
-        }
-    }
-    translate([-36.44/2, -7.78, 0.55]){
-        rotate([0, 90, 0]){
-            scale([1.04, 1.04, 1.04]){
-                minkowski(){
-                    cylinder(r = 2.5, h = 0.716619, $fn = 150, center = true);
-                    sphere(r = 1.2, $fn = 150);
+        difference(){
+            difference(){
+                difference(){
+                    body();
+                    translate([0, 0, 3.86]){
+                        cube([50, 50, 0.17], center = true);
+                    }
+                }
+                translate([-36.44/2, -7.78, 0.55]){
+                    rotate([0, 90, 0]){
+                        scale([1.04, 1.04, 1.04]){
+                            minkowski(){
+                                cylinder(r = 2.5, h = 0.716619, $fn = 150, center = true);
+                                sphere(r = 1.2, $fn = 150);
+                            }
+                        }
+                    }
                 }
             }
+            speaker_bottom(0.2);
         }
+        speaker_top(0.2);
     }
+    mic(0.6);
 }
 
 //#cube([36.44, 42.50, 10.5], center = true);
@@ -114,5 +123,89 @@ translate([-0.125, 0, 0]){
     intersection(){
         body();
         button_outline();
+    }
+}
+
+//bottom speaker
+module speaker_bottom(H){
+    translate([16.17264, -9.375, -4.16]){
+        rotate([0, -37.59142, 0]){
+            cube([0.85, 3.2, H], center = true);
+            translate([0, 1.605, 0]){
+                cylinder(r = 0.425, center = true, h = H, $fn = 300);
+            }
+            translate([0, -1.605, 0]){
+                cylinder(r = 0.425, center = true, h = H, $fn = 300);
+            }
+        }
+    }
+    translate([16.17264, -9.375, -4.16]){
+        rotate([0, -37.59142, 0]){
+            scale([0.6/0.85, 0.9, 2]){
+                cube([0.85, 3.2, H + 0.4], center = true);
+            }
+            scale([0.6/0.85, 0.9, 2]){
+                translate([0, 1.605, 0]){
+                    cylinder(r = 0.425, center = true, h = H + 0.4, $fn = 300);
+                }
+            }
+            scale([0.6/0.85, 0.9, 2]){
+                translate([0, -1.605, 0]){        
+                    cylinder(r = 0.425, center = true, h = H + 0.4, $fn = 300);
+                }
+            }
+        }
+    }
+}
+
+//top speaker
+module speaker_top(H){
+    translate([17.97818, -9.375, -1.575]){
+        rotate([0, -72.5422, 0]){
+            cube([0.85, 3.2, H], center = true);
+            translate([0, 1.605, 0]){          
+                cylinder(r = 0.425, center = true, h = H, $fn = 300);
+            }
+            translate([0, -1.605, 0]){
+                cylinder(r = 0.425, center = true, h = H, $fn = 300);
+            }
+        }
+    }
+    translate([17.97818, -9.375, -1.575]){
+        rotate([0, -72.5422, 0]){
+            scale([0.6/0.85, 0.9, 2]){
+                cube([0.85, 3.2, H + 0.4], center = true);
+            }
+            scale([0.6/0.85, 0.9, 2]){
+                translate([0, 1.605, 0]){
+                    cylinder(r = 0.425, center = true, h = H + 0.4, $fn = 300);
+                }
+            }
+            scale([0.6/0.85, 0.9, 2]){
+                translate([0, -1.605, 0]){
+                    cylinder(r = 0.425, center = true, h = H + 0.4, $fn = 300);
+                }
+            }
+        }
+    }
+}
+
+//mic
+module mic(H){
+    translate([17.278, 0, -3]){
+        rotate([0, -55.15, 0]){
+            translate([0, 9.05, 0]){                    
+                    cylinder(r = 1.3/2, center = true, h = H, $fn = 300);
+            }
+        }
+    }
+    translate([17.278, 0, -3]){
+        rotate([0, -55.15, 0]){
+            translate([0, 9.05, 0]){
+                scale([1/1.3, 1/1.3, 1.3]){
+                    cylinder(r = 1.3/2, center = true, h = H + 1.2, $fn = 300);
+                }
+            }
+        }
     }
 }
