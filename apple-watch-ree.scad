@@ -57,28 +57,39 @@ difference(){
         difference(){
             difference(){
                 difference(){
-                    body();
-                    translate([0, 0, 3.86]){
-                        cube([50, 50, 0.17], center = true);
-                    }
-                }
-                translate([-36.44/2, -7.78, 0.55]){
-                    rotate([0, 90, 0]){
-                        scale([1.04, 1.04, 1.04]){
-                            minkowski(){
-                                cylinder(r = 2.5, h = 0.716619, $fn = 150, center = true);
-                                sphere(r = 1.2, $fn = 150);
+                    difference(){
+                        difference(){
+                            body();
+                            translate([0, 0, 3.86]){
+                                cube([50, 50, 0.17], center = true);
+                            }
+                        }
+                        translate([-36.44/2, -7.78, 0.55]){
+                            rotate([0, 90, 0]){
+                                scale([1.04, 1.04, 1.04]){
+                                    minkowski(){
+                                        cylinder(r = 2.5, h = 0.716619, $fn = 150, center = true);
+                                        sphere(r = 1.2, $fn = 150);
+                                    }
+                                }
                             }
                         }
                     }
+                    speaker_bottom(0.2);
                 }
+                speaker_top(0.2);
             }
-            speaker_bottom(0.2);
+            mic(0.6);
         }
-        speaker_top(0.2);
+        translate([0, 0, -0.001]){
+            plus_y_band_release_button();
+        }
     }
-    mic(0.6);
+    translate([0, 0, -0.001]){
+        minus_y_band_release_button();
+    }
 }
+
 
 //#cube([36.44, 42.50, 10.5], center = true);
 
@@ -205,6 +216,63 @@ module mic(H){
                 scale([1/1.3, 1/1.3, 1.3]){
                     cylinder(r = 1.3/2, center = true, h = H + 1.2, $fn = 300);
                 }
+            }
+        }
+    }
+}
+
+//band release buttons
+module band_release_button(){
+    translate([2.88, 0, 0]){
+        cylinder(r = 1.02, h = 1, center = true, $fn = 100);
+    }
+    translate([-2.88, 0, 0]){
+        cylinder(r = 1.02, h = 1, center = true, $fn = 100);
+    }
+    cube([5.76, 2.04, 1], center = true);
+}
+
+//+y band release button
+module plus_y_band_release_button(){
+    intersection(){
+        body();
+        translate([0, 17.72, -4.9607]){
+            rotate([19.124, 0, 0]){
+                band_release_button();
+            }
+        }
+    }
+}
+
+intersection(){
+    body();
+    translate([0, 17.72, -4.9607]){
+        rotate([19.124, 0, 0]){
+            scale([0.97, 0.94, 0.94]){
+                band_release_button();
+            }
+        }
+    }
+}
+
+//-y band release button
+module minus_y_band_release_button(){
+    intersection(){
+        body();
+        translate([0, -17.72, -4.9607]){
+            rotate([-19.124, 0, 0]){
+                band_release_button();
+            }
+        }
+    }
+}
+
+intersection(){
+    body();
+    translate([0, -17.72, -4.9607]){
+        rotate([-19.124, 0, 0]){
+            scale([0.97, 0.94, 0.94]){
+                band_release_button();
             }
         }
     }
