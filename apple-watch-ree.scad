@@ -59,35 +59,47 @@ difference(){
                 difference(){
                     difference(){
                         difference(){
-                            body();
-                            translate([0, 0, 3.86]){
-                                cube([50, 50, 0.17], center = true);
-                            }
-                        }
-                        translate([-36.44/2, -7.78, 0.55]){
-                            rotate([0, 90, 0]){
-                                scale([1.04, 1.04, 1.04]){
-                                    minkowski(){
-                                        cylinder(r = 2.5, h = 0.716619, $fn = 150, center = true);
-                                        sphere(r = 1.2, $fn = 150);
+                            difference(){
+                                difference(){
+                                    difference(){
+                                        difference(){
+                                            body();
+                                            translate([0, 0, 3.86]){
+                                                cube([50, 50, 0.17], center = true);
+                                            }
+                                        }
+                                        translate([-36.44/2, -7.78, 0.55]){
+                                            rotate([0, 90, 0]){
+                                                scale([1.04, 1.04, 1.04]){
+                                                    minkowski(){
+                                                        cylinder(r = 2.5, h = 0.716619, $fn = 150, center = true);
+                                                        sphere(r = 1.2, $fn = 150);
+                                                    }   
+                                                }
+                                            }
+                                        }
                                     }
+                                    speaker_bottom(0.2);
                                 }
+                                speaker_top(0.2);
                             }
+                            mic(0.6);
+                        }
+                        translate([0, 0, -0.001]){
+                            plus_y_band_release_button();
                         }
                     }
-                    speaker_bottom(0.2);
+                    translate([0, 0, -0.001]){
+                        minus_y_band_release_button();
+                    }
                 }
-                speaker_top(0.2);
+                plus_y_bandslot();
             }
-            mic(0.6);
+            minus_y_bandslot();
         }
-        translate([0, 0, -0.001]){
-            plus_y_band_release_button();
-        }
+        plus_y_bandslot_gap(0.5);
     }
-    translate([0, 0, -0.001]){
-        minus_y_band_release_button();
-    }
+    minus_y_bandslot_gap(0.3);
 }
 
 
@@ -130,7 +142,7 @@ module button_outline(){
     }
 }
 
-translate([-0.125, 0, 0]){
+translate([-0.42, 0, 0]){
     intersection(){
         body();
         button_outline();
@@ -232,29 +244,6 @@ module band_release_button(){
     cube([5.76, 2.04, 1], center = true);
 }
 
-//+y band release button
-module plus_y_band_release_button(){
-    intersection(){
-        body();
-        translate([0, 17.72, -4.9607]){
-            rotate([19.124, 0, 0]){
-                band_release_button();
-            }
-        }
-    }
-}
-
-intersection(){
-    body();
-    translate([0, 17.72, -4.9607]){
-        rotate([19.124, 0, 0]){
-            scale([0.97, 0.94, 0.94]){
-                band_release_button();
-            }
-        }
-    }
-}
-
 //-y band release button
 module minus_y_band_release_button(){
     intersection(){
@@ -278,9 +267,28 @@ intersection(){
     }
 }
 
+//+y band release button
+module plus_y_band_release_button(){
+    intersection(){
+        body();
+        translate([0, 17.72, -4.9607]){
+            rotate([19.124, 0, 0]){
+                band_release_button();
+            }
+        }
+    }
+}
 
-
-
+intersection(){
+    body();
+    translate([0, 17.72, -4.9607]){
+        rotate([19.124, 0, 0]){
+            scale([0.97, 0.94, 0.94]){
+                band_release_button();
+            }
+        }
+    }
+}
 
 //sensor
 rotate([180, 0, 0]){
@@ -336,5 +344,77 @@ intersection(){
     }
     translate([0, 0, -6]){
         cylinder(r = 12.84, h = 10, $fn = 100, center = true);
+    }
+}
+//fill
+translate([0, 0, -3]){
+	cylinder(r = 13.6932, h = 4.5, $fn = 300, center = true);
+}
+
+//-y bandslot
+module minus_y_bandslot(){
+    translate([0, -20.86, -1.99]){
+        rotate([-60, 0, 0]){
+            cube([40, 3.2, 4.81], center = true);
+        }
+    }
+    translate([0, -20.86+2.083, -1.99+1.2025]){
+        rotate([0, 90, 0]){
+            cylinder(r = 3.2/2, h = 40, $fn = 150, center = true);
+        }
+    }
+}
+
+//+y bandslot
+module plus_y_bandslot(){
+    rotate([0, 0, 180]){
+        translate([0, -20.86, -1.99]){
+            rotate([-60, 0, 0]){
+                cube([40, 3.2, 4.81], center = true);
+            }
+        }
+        translate([0, -20.86+2.083, -1.99+1.2025]){
+            rotate([0, 90, 0]){
+                cylinder(r = 3.2/2, h = 40, $fn = 150, center = true);
+            }
+        }
+    }
+}
+
+//-y bandslot gap
+module minus_y_bandslot_gap(H){
+    rotate([0, 0, 180]){
+        intersection(){
+            translate([0, 17, -4.9607]){
+                rotate([-30, 0, 0]){
+                    scale([0.67945, 1.17945, 25]){
+                        band_release_button();
+                    }
+                }
+            }
+            translate([0, 16, -H]){
+                rotate([-20, 0, 0]){
+                    cube([20, 20, 3.2], center = true);
+                }   
+            }
+        }
+    }
+}
+
+//+y bandslot gap
+module plus_y_bandslot_gap(H){
+    intersection(){
+        translate([0, 17, -4.9607]){
+            rotate([-30, 0, 0]){
+                scale([0.67945, 1.17945, 25]){
+                    band_release_button();
+                }
+            }
+        }
+        translate([0, 16, -H]){
+            rotate([-20, 0, 0]){
+                cube([20, 20, 3.2], center = true);
+            }
+        }
     }
 }
