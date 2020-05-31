@@ -97,11 +97,10 @@ difference(){
             }
             minus_y_bandslot();
         }
-        plus_y_bandslot_gap(0.5);
+        plus_y_bandslot_gap(0.3);
     }
     minus_y_bandslot_gap(0.3);
 }
-
 
 //#cube([36.44, 42.50, 10.5], center = true);
 
